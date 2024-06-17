@@ -19,11 +19,9 @@ exports.Addbook = async (req, res) => {
             author: req.body.author,
             price: req.body.price,
             desc: req.body.desc,
-            language:req.body.language
+            language: req.body.language
         })
-        const db=await book.save();
-        res.status(200).json(db);
-
+        const db = await book.save();
         res.status(200).json({
             message: "books added in the DB."
         })
