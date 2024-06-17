@@ -15,12 +15,20 @@ exports.Signin = async (req, res) => {
         bcrypt.compare(password, checkuser.password, (err, data) => {
             if (data) {
 
-                const authClaims=[{name:checkuser.username},
-                    {role:exting}
-                ]
+                const payload = [
+                    { name: checkuser.username },
+                    { role: checkuser.role }
+                ];
 
-                const token = jwt.sign({ authClaims }, "bookstorekey", { expiresIn: "30d" })
-                res.status(200).json({ message: "signin user success" })
+
+                //create token 
+                const token = jwt.sign({ payload }, "bookstorekey", { expiresIn: "30d" })
+                res.status(200).json({
+                    message: "signin user success",
+                    id: checkuser._id,//unique id
+                    role: checkuser.role,
+                    token: token
+                })
 
             }
             else {

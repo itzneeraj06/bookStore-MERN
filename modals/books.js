@@ -16,6 +16,11 @@ const books = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    desc: {
+        type: String,
+        required: true,
+
+    },
     language: {
         type: String,
         required: true,
@@ -23,6 +28,6 @@ const books = new mongoose.Schema({
 
 
 },
-{ timestamps: true }
+    { timestamps: true }
 );
 module.exports = mongoose.model("books", books);
