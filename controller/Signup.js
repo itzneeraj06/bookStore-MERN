@@ -1,4 +1,4 @@
-const User = require("../modals/user");
+const User = require("../modals/users");
 const bcrypt=require("bcrypt")
 
 exports.Signup = async (req, res) => {

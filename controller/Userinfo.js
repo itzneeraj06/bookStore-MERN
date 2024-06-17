@@ -1,6 +1,6 @@
-const User = require("../modals/user");
+const User = require("../modals/users");
 
-exports.Userinfo = async (req, res) => {
+exports.userInfo = async (req, res) => {
     try {
         const { id } = req.headers;
         const data = await User.findById(id).select("-password");
