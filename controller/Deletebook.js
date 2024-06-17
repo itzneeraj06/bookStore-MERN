@@ -4,6 +4,7 @@ exports.Deletebook = async (req, res) => {
     try {
         const id = req.headers["id"];
         // const {id}=req.headers;=> same same 
+        
         const user = await User.findById(id);
         if (!user) {
             return res.status(400).json({ message: "Invalid user ID" });
@@ -13,19 +14,10 @@ exports.Deletebook = async (req, res) => {
             return res.status(400).json({ message: "access denied need admin permission " })
 
         }
-        const book = new books({
-            url: req.body.url,
-            title: req.body.title,
-            author: req.body.author,
-            price: req.body.price,
-            desc: req.body.desc,
-            language:req.body.language
-        })
-        const db=await book.save();
-        res.status(200).json(db);
 
+        await books.findByIdAndDelete(id)
         res.status(200).json({
-            message: "books added in the DB."
+            message: "data deleted."
         })
 
     } catch (error) {
