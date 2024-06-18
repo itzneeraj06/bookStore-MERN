@@ -6,7 +6,7 @@ const { GetbookbyId, Getbooks, Deletebook, Updatebook, Addbook } = require("../c
 //routes
 router.post("/addbook", authenticationToken, Addbook);
 router.put("/updatebook", authenticationToken, Updatebook);
-router.delete("/deletebook", authenticationToken, Deletebook);
+router.put("/deletebook", authenticationToken, Deletebook);
 router.get("/getallbooks", Getbooks);
 router.get("/getbook/:id", GetbookbyId);
 
