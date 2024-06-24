@@ -119,3 +119,14 @@ exports.GetbookbyId = async (req, res) => {
         })
     }
 }
+exports.Getrecentbooks=async(req,res)=>{
+    try {
+        const book = await books.find().sort({createdAt:-1}).limit(4);
+        return res.json({
+            status: "success",
+            data: book
+        })
+    } catch (error) {
+        return res.status(500).json({ message: "failed to fetch recent books" })
+    }
+}
