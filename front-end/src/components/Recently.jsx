@@ -11,7 +11,6 @@ const Recently = () => {
       setData(response.data.data);
     }
     fetch();
-
   }, [])
 
   return (
@@ -25,12 +24,12 @@ const Recently = () => {
       <div className='my-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8'>
 
         {
-          data && data.map((item, index) =>
+          data && 
+          data.map((item, index) =>
             <div key={index}>
               <BookCard data={item} />
             </div>)
         }
-
       </div>
     </div>
 
