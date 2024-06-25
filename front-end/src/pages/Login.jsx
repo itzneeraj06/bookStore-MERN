@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-
+import { login, changeRole } from '../store/auth'
+import { useDispatch } from 'react-redux'
 const Login = () => {
   const [Values, setValue] = useState({
     username: "",
     password: "",
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   //input par onchange use kiya h or onchange par change function call kiya h 
   const change = (e) => {
@@ -26,6 +28,13 @@ const Login = () => {
         // console.log(response.data);
         alert(response.data.message);
         navigate('/');
+
+        dispatch(login())
+        dispatch(changeRole(response.data.role))
+
+
+
+
 
         //pass token into localstorage(storage)
         localStorage.setItem("id", response.data.id);
@@ -53,7 +62,7 @@ const Login = () => {
           </div>
 
           <div className='mt-4'>
-            <button className='w-full bg-blue-500 text-white font-semibold py-2 rounded hover:bg-white hover:text-blue-500' onClick={submit}>
+            <button className='w-full bg-blue-500 text-white font-semibold py-2 rounded hover:bg-blue-600' onClick={submit}>
               Login
             </button>
           </div>

@@ -59,7 +59,7 @@ const Signup = () => {
             <textarea id="address" name='address' placeholder='address' className='w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none' required value={Values.address} onChange={change}></textarea>
           </div>
           <div className='mt-4'>
-            <button className='w-full bg-blue-500 text-white font-semibold py-2 rounded hover:bg-white hover:text-blue-500' onClick={submit}>
+            <button className='w-full bg-blue-500 text-white font-semibold py-2 rounded hover:bg-blue-600' onClick={submit}>
               Signup
             </button>
           </div>
