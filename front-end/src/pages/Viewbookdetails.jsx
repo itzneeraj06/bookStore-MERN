@@ -3,10 +3,33 @@ import axios from 'axios'
 import Loader from '../components/Loader.jsx';
 import { GrLanguage } from "react-icons/gr";
 import { useParams } from 'react-router-dom'
+import { FaHeart } from "react-icons/fa";
+import { FaCartShopping } from "react-icons/fa6";
+import { MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
+import { useSelector } from 'react-redux';
+
 
 const Viewbookdetails = () => {
   const { id } = useParams();
   const [data, setData] = useState();
+  const [like, setlike] = useState();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
+  const role = useSelector((state) => state.auth.role);
+
+
+  const headers = {
+    id: localStorage.getItem("id"),
+    authorization: `Bearer ${localStorage.getItem("token")}`,
+    bookid: id,
+
+  }
+  const handleFav = async () => {
+    const response = await axios.put("http://localhost:4000/api/v1/addfav", { headers }, { headers });
+    alert(response.data.message);
+    setlike(response.data.message);
+  }
+
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(`http://localhost:4000/api/v1/getbook/${id}`)
@@ -30,7 +53,22 @@ const Viewbookdetails = () => {
       {
         data && (
           <div className='px-4 sm:px-12 py-8 bg-zinc-900 flex flex-col sm:flex-row'>
-            <div className='bg-zinc-800 rounded p-4  w-full sm:w-3/6 flex items-center justify-center'><img src={data.url} alt="" className='h-[70vh]' /></div>
+            <div className='bg-zinc-800 rounded p-4 w-full sm:w-3/6 flex justify-center flex-col sm:flex-row items-center sm:items-start'>
+              <img src={data.url} alt="" className='h-[70vh]' />
+              {isLoggedIn && role === "user" &&
+                <div className='flex flex-row sm:flex-col   p-2'>
+                  <button
+                    className={`bg-white rounded-full text-xl p-2 w-auto mx-2 sm:mx-0 ${like ==="failed to add in fav"||!like ? 'text-red-300' : 'text-red-500'}`} onClick={handleFav}><FaHeart /></button>
+                  <button className='bg-white text-blue-300 rounded-full text-xl p-2 mt-0 sm:mt-2 w-auto'><FaCartShopping /></button>
+                </div>
+              }
+              {isLoggedIn && role === "admin" &&
+                <div className='flex flex-row sm:flex-col   p-2'>
+                  <button className='bg-white text-zinc-800 rounded-full text-xl p-2 w-auto mx-2 sm:mx-0'><MdDelete /></button>
+                  <button className='bg-white text-zinc-800 rounded-full text-xl p-2 mt-0 sm:mt-2 w-auto'><FaEdit /></button>
+                </div>
+              }
+            </div>
             <div className='p-4 w-full sm:w-3/6'>
               <h1 className='text-4xl text-zinc-300 font-semibold'>{data.title}</h1>
               <p className='text-zinc-400 mt-1'>by {data.author}</p>

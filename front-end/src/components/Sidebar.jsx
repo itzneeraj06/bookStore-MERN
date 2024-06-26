@@ -6,8 +6,8 @@ const Sidebar = (props) => {
     <div className='bg-zinc-800 py-4 px-4 rounded flex flex-col items-center justify-around h-[95vh] '>
       <div className='flex flex-col items-center'>
         <img src={props.data.avatar} alt="" className='h-12' />
-        <p className='mt-3 text-3xl text-zinc-100 font-semibold'>{props.data.username}</p>
-        <p className='mt-1 text-normal text-zinc-300'>{props.data.email}</p>
+        <p className='mt-3 text:xl sm:text-3xl text-zinc-100 font-semibold'>{props.data.username}</p>
+        <p className='mt-1 text-sm sm:text-normals text-zinc-300'>{props.data.email}</p>
         <hr className='mt-2 h-[0.01vh] border-none w-full bg-zinc-600' />
       </div>
       <div className='flex flex-col items-center'>

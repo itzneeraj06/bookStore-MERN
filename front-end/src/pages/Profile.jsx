@@ -30,10 +30,10 @@ const Profile = () => {
       }
       {Profile &&
         <div className='flex flex-row'>
-          <div className='w-1/6'>
+          <div className='w-3/6 sm:w-2/6 lg:w-1/6'>
             <Sidebar data={Profile} />
           </div>
-          <div className='w-5/6'>
+          <div className='w-3/6 sm:4/6 lg:w-5/6'>
             <Outlet />
           </div>
         </div>}
