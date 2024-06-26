@@ -11,7 +11,7 @@ const Sidebar = (props) => {
         <hr className='mt-2 h-[0.01vh] border-none w-full bg-zinc-600' />
       </div>
       <div className='flex flex-col items-center'>
-        <Link index className='text-zinc-100 hover:font-semibold w-full py-2   text-center transition-all p-1 hover:tracking-wider'>Favourites</Link>
+        <Link index to="/profile" className='text-zinc-100 hover:font-semibold w-full py-2   text-center transition-all p-1 hover:tracking-wider'>Favourites</Link>
         <Link to="/profile/orderhistory" className='text-zinc-100 hover:font-semibold w-full py-2   text-center transition-all p-1 hover:tracking-wider'>Order History</Link>
         <Link to="/profile/setting" className='text-zinc-100 hover:font-semibold w-full py-2   text-center transition-all p-1 hover:tracking-wider' >Setting</Link>
       </div>
