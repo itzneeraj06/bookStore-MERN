@@ -17,7 +17,7 @@ const Favourites = () => {
 
     };
     fetch();
-  }, [Fav])
+  }, [])
 
   return (
     <div className=''>

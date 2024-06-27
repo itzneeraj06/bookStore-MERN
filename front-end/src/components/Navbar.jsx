@@ -21,7 +21,7 @@ const Navbar = () => {
           <li className=' hover:text-blue-500 transition-all duration-500'><Link to={'/'}>Home</Link></li>
           <li className=' hover:text-blue-500 transition-all duration-500'><Link to={'/allbooks'}>All Books</Link></li>
           {isLoggedIn &&
-            <li className=' hover:text-blue-500 transition-all duration-500'>Cart</li>
+            <li className=' hover:text-blue-500 transition-all duration-500'><Link to={'/cart'}>Cart</Link></li>
           }
         </ul>
         {!isLoggedIn &&
