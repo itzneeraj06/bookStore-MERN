@@ -13,7 +13,6 @@ import { useSelector } from 'react-redux';
 const Viewbookdetails = () => {
   const { id } = useParams();
   const [data, setData] = useState();
-  const [like, setlike] = useState();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
   const role = useSelector((state) => state.auth.role);
 
@@ -25,9 +24,12 @@ const Viewbookdetails = () => {
 
   }
   const handleFav = async () => {
-    const response = await axios.put("http://localhost:4000/api/v1/addfav", { headers }, { headers });
+    const response = await axios.put("http://localhost:4000/api/v1/addfav", {}, { headers });
     alert(response.data.message);
-    setlike(response.data.message);
+  }
+  const handleCart = async () => {
+    const response = await axios.put("http://localhost:4000/api/v1/addtocart", {}, { headers });
+    alert(response.data.message);
   }
 
   useEffect(() => {
@@ -40,7 +42,7 @@ const Viewbookdetails = () => {
     fetch();
 
 
-  })
+  },[])
   // console.log(data);
   return (
     <>
@@ -57,9 +59,8 @@ const Viewbookdetails = () => {
               <img src={data.url} alt="" className='h-[70vh]' />
               {isLoggedIn && role === "user" &&
                 <div className='flex flex-row sm:flex-col   p-2'>
-                  <button
-                    className={`bg-white rounded-full text-xl p-2 w-auto mx-2 sm:mx-0 ${like ==="failed to add in fav"||!like ? 'text-red-300' : 'text-red-500'}`} onClick={handleFav}><FaHeart /></button>
-                  <button className='bg-white text-blue-300 rounded-full text-xl p-2 mt-0 sm:mt-2 w-auto'><FaCartShopping /></button>
+                  <button className='bg-white text-red-500 rounded-full text-xl p-2 w-auto mx-2 sm:mx-0 ' onClick={handleFav}><FaHeart /></button>
+                  <button className='bg-white text-blue-300 rounded-full text-xl p-2 mt-0 sm:mt-2 w-auto' onClick={handleCart}><FaCartShopping /></button>
                 </div>
               }
               {isLoggedIn && role === "admin" &&
