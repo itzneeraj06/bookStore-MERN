@@ -24,12 +24,6 @@ const OrderHistory = () => {
       {!orderhistory &&
         <div className='w-full h-screen flex items-center justify-center'><Loader /></div>
       }
-      {
-        orderhistory && orderhistory.length === 0 &&
-        <div className='w-full mt-16 text-zinc-700 flex items-center justify-center'>
-          <p >No Order History</p>
-        </div>
-      }
       <p className='text-2xl font-semibold mx-2 my-4 '>My Orders</p>
       <div className='overflow-scroll sm:overflow-hidden'>
         <div className='grid grid-cols-9 font-semibold bg-zinc-800 py-1 px-2 m-2  text-zinc-500 text-xs sm:text-sm w-[150%] sm:w-auto' >
@@ -40,6 +34,12 @@ const OrderHistory = () => {
           <p>Status</p>
           <p>Mode</p>
         </div>
+        {
+          orderhistory && orderhistory.length === 0 &&
+          <div className='w-full mt-16 text-zinc-700 flex items-center justify-center'>
+            <p >No Order History</p>
+          </div>
+        }
         {
           orderhistory && orderhistory.length > 0 &&
           orderhistory.map((item, index) => (
