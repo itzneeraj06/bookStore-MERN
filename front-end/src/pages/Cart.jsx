@@ -67,18 +67,18 @@ const Cart = () => {
 
           {
             cart && cart.map((item, index) => (
-              <div key={index} className='flex  items-center justify-between bg-zinc-800 text-white m-2 rounded-3xl px-12 mx-12 '>
+              <div key={index} className='flex  items-center justify-between bg-zinc-800 text-white m-2 rounded sm:px-12 sm:mx-12 '>
                 <div className='w-1/6'>
-                  <img src={item.url} alt="" className='h-[20vh] rounded p-2 object-cover' />
+                  <img src={item.url} alt="" className='h-[10vh] sm:h-[20vh] rounded p-2 object-cover' />
 
                 </div>
                 <div className='flex flex-col items-start w-4/6'>
-                  <p className='font-semibold text-xl'>{item.title}</p>
-                  <p className='text-zinc-500'>{item.desc.slice(0, 100)}</p>
+                  <p className='font-semibold text:md sm:text-xl'>{item.title}</p>
+                  <p className='text-zinc-500 text-xs sm:text-sm '>{item.desc.slice(0, 50)}...</p>
                 </div>
-                <div className='flex w-1/6 justify-around'>
+                <div className='flex w-1/6 justify-around text-xs sm:text-lg'>
                   <p>₹ {item.price}</p>
-                  <button onClick={() => removeCart(item._id)} className='text-2xl'><MdDelete /></button>
+                  <button onClick={() => removeCart(item._id)} className='sm:text-2xl'><MdDelete /></button>
                 </div>
               </div>
             ))
@@ -86,15 +86,15 @@ const Cart = () => {
           {
             cart && cart.length > 0 &&
             (
-              <div className='flex  justify-end px-12'>
-                <div className='bg-zinc-800 text-white px-8 py-4 mx-12 rounded-2xl'>
-                  <p className='font-semibold text-2xl'>Total Amount</p>
-                  <div className='flex justify-around my-4'>
+              <div className='flex  justify-end px-2 sm:px-12'>
+                <div className='bg-zinc-800 text-white px-4 py-1 sm:mx-12 sm:px-8 sm:py-4 rounded'>
+                  <p className='font-semibold text-lg sm:text-2xl text-zinc-600'>Total Amount</p>
+                  <div className='flex justify-around my-2 sm:my-4'>
                     <p>{cart.length} books </p>
                     <p>₹ {total}</p>
                   </div>
                   <div className='flex justify-center'>
-                    <button className='bg-white text-zinc-900 px-8 py-2 rounded font-semibold' onClick={placeorder}> Place order</button>
+                    <button className='bg-white text-zinc-900 px-4 py-1 sm:px-8 sm:py-2 rounded font-semibold' onClick={placeorder}> Place order</button>
                   </div>
                 </div>
               </div>

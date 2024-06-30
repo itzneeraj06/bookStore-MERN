@@ -42,7 +42,7 @@ const Viewbookdetails = () => {
     fetch();
 
 
-  },[])
+  },[id])
   // console.log(data);
   return (
     <>
@@ -56,7 +56,7 @@ const Viewbookdetails = () => {
         data && (
           <div className='px-4 sm:px-12 py-8 bg-zinc-900 flex flex-col sm:flex-row'>
             <div className='bg-zinc-800 rounded p-4 w-full sm:w-3/6 flex justify-center flex-col sm:flex-row items-center sm:items-start'>
-              <img src={data.url} alt="" className='h-[70vh]' />
+              <img src={data.url} alt="" className='h-[30vh] sm:h-[70vh]' />
               {isLoggedIn && role === "user" &&
                 <div className='flex flex-row sm:flex-col   p-2'>
                   <button className='bg-white text-red-500 rounded-full text-xl p-2 w-auto mx-2 sm:mx-0 ' onClick={handleFav}><FaHeart /></button>
@@ -75,7 +75,7 @@ const Viewbookdetails = () => {
               <p className='text-zinc-400 mt-1'>by {data.author}</p>
               <p className='flex mt-1 items-center justify-start text-zinc-400'><GrLanguage className='me-2' /> {data.language}</p>
               <p className='mt-4 text-zinc-100 text-3xl font-semibold'>Price : ₹ {data.price} {" "}</p>
-              <p className='text-zinc-500 mt-4 text-xl'>{data.desc}</p>
+              <p className='text-zinc-500 mt-4 text-xs  sm:text-xl'>{data.desc}</p>
 
             </div>
 

@@ -21,10 +21,10 @@ const Recently = () => {
           <Loader />
         </div>
       }
-      <div className='my-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8'>
+      <div className='my-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 lg:gap-8 '>
 
         {
-          data && 
+          data &&
           data.map((item, index) =>
             <div key={index}>
               <BookCard data={item} />
