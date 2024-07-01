@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+
 const user = new mongoose.Schema({
     username: {
         type: String,
@@ -43,15 +44,9 @@ const user = new mongoose.Schema({
     order: [
         {
             type: mongoose.Types.ObjectId,
-            ref: "books"
+            ref: "order"
         }
-    ],
-    fav: [
-        {
-            type: mongoose.Types.ObjectId,
-            ref: "books"
-        }
-    ],
+    ]
 
 
 }, { timestamps: true });

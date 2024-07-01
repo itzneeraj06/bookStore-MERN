@@ -12,7 +12,7 @@ const authenticationToken = (req, res, next) => {
     jwt.verify(token, "bookstorekey", (err, user) => {
         if (err) {
             return res.status(403).json({
-                message: "token expired"
+                message: "token expired or doesnt valid"
             });
         }
         req.user = user;

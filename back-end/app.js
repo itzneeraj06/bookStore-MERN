@@ -12,7 +12,7 @@ const port = parseInt(process.env.PORT);
 
 require("./configure/config.js")
 
-app.use(cors());
+app.use(cors())
 app.use(express.json());
 app.use("/api/v1", user);
 app.use("/api/v1", book);

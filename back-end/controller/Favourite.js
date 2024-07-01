@@ -27,11 +27,9 @@ exports.removeFavourite = async (req, res) => {
         const isFav = userData.fav.includes(bookid);
         if (isFav) {
             await User.findByIdAndUpdate(id, { $pull: { fav: bookid } })
+            res.status(200).json({ message: "remove from favourites" })
 
         }
-
-        res.status(200).json({ message: "removed" })
-
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "failed to remove in fav" })
@@ -39,10 +37,12 @@ exports.removeFavourite = async (req, res) => {
 }
 
 exports.getFavBooks = async (req, res) => {
+
     const { id } = req.headers;
     const userData = await User.findById(id).populate("fav");
-    const favBooks=userData.fav;
+    const favBooks = userData.fav;
+
     return res.status(200).json({
-        data:favBooks,
+        data: favBooks,
     })
 }

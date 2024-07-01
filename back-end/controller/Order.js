@@ -1,4 +1,3 @@
-const Book = require("../modals/books")
 const Order = require("../modals/orders")
 const User = require("../modals/users")
 
@@ -8,22 +7,24 @@ exports.placeOrder = async (req, res) => {
         const { order } = req.body;
 
         //loop isliye lagaya hai yadi ek se jyaada order hue toh iterate hoga 
-        for (orderData of order) {
-            const newOrder = new Order({ user: id, book: order });
+        for (const orderData of order) {
+            const newOrder = new Order({ user: id, book: orderData._id });
             const orderDataFromDb = await newOrder.save();
 
             //user ke schema me order ki value update kri 
-            await User.findByIdAndUpdate(id, { $push: { order: order } })
+            await User.findByIdAndUpdate(id, { $push: { order: orderDataFromDb._id } })
 
             //user ke schema me se cart ki value update kri
-            await User.findByIdAndUpdate(id, { $pull: { cart: order } })
+            await User.findByIdAndUpdate(id, { $pull: { cart: orderData._id } })
 
-            return res.json({
-                status: "Success",
-                message: "order placed"
-            })
+
+
 
         }
+        return res.json({
+            status: "Success",
+            message: "order placed"
+        })
 
 
 
@@ -38,15 +39,18 @@ exports.placeOrder = async (req, res) => {
 
 exports.orderHistory = async (req, res) => {
 
+
     try {
         const { id } = req.headers;
-        const userData = await User.findById(id).populate({
-            path: "order",
-            populate: {
-                path: "book"
+        // yha pr chaining ho rhi h user->order->book 
+        const userData = await User.findById(id).populate(
+            {
+                path: "order",
+                populate: { path: "book" }
             }
-        });
-        const ordersData = userData.order.reverse();
+        );
+        const ordersData = userData.order
+        // console.log(ordersData);
 
         return res.json({
             status: "success",
@@ -68,8 +72,8 @@ exports.updateStatus = async (req, res) => {
             status: req.body.status
         })
         return res.json({
-            status:"success",
-            mesage:"order status updated"
+            status: "success",
+            mesage: "order status updated"
         })
 
     } catch (error) {
