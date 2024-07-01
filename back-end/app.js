@@ -8,7 +8,7 @@ const cart = require("./routes/cart.js")
 const order = require("./routes/order.js")
 
 require("dotenv").config();
-const port = parseInt(process.env.PORT);
+const port = parseInt(process.env.PORT)||4000;
 
 require("./configure/config.js")
 
