@@ -1,7 +1,19 @@
 import React from 'react'
 import { FaArrowRightFromBracket } from 'react-icons/fa6'
-import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { changeRole, logout } from '../store/auth'
 const Sidebar = (props) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const logoutbtn = () => {
+    dispatch(logout());
+    dispatch(changeRole());
+    localStorage.clear("id")
+    localStorage.clear("token")
+    localStorage.clear("role")
+    navigate("/")
+  }
   return (
     <>
       <div className='bg-zinc-800 py-4 px-4 rounded flex flex-col items-center justify-around h-auto sm:h-[95vh] '>
@@ -16,7 +28,7 @@ const Sidebar = (props) => {
           <Link to="/profile/orderhistory" className='text-zinc-100 hover:font-semibold w-full py-2   text-center transition-all p-1 hover:tracking-wider'>Order History</Link>
           <Link to="/profile/setting" className='text-zinc-100 hover:font-semibold w-full py-2   text-center transition-all p-1 hover:tracking-wider' >Setting</Link>
         </div>
-        <button className='bg-zinc-800 text-white font-semibold flex items-center justify-center w-auto sm:w-full  rounded hover:bg-zinc-900 transition-all duration-500 my-6 p-2 hover:tracking-wider'>Logout <FaArrowRightFromBracket className='ms-4' /></button>
+        <button className='bg-zinc-800 text-white font-semibold flex items-center justify-center w-auto sm:w-full  rounded hover:bg-zinc-900 transition-all duration-500 my-6 p-2 hover:tracking-wider' onClick={logoutbtn}>Logout <FaArrowRightFromBracket className='ms-4' /></button>
 
       </div>
       <div className='flex sm:hidden  flex-row sm:flex-col items-center w-full'>
@@ -24,7 +36,7 @@ const Sidebar = (props) => {
         <Link to="/profile/orderhistory" className='text-zinc-100 hover:font-semibold w-full py-2   text-center transition-all p-1 hover:tracking-wider'>Order History</Link>
         <Link to="/profile/setting" className='text-zinc-100 hover:font-semibold w-full py-2   text-center transition-all p-1 hover:tracking-wider' >Setting</Link>
       </div>
-      <hr className='sm:hidden w-[50%] flex mx-auto mt-6 '/>
+      <hr className='sm:hidden w-[50%] flex mx-auto mt-6 ' />
     </>
   )
 }
