@@ -7,7 +7,7 @@ const Allbooks = () => {
   const [data, setData] = useState();
   useEffect(() => {
     const fetch = async () => {
-      const response = await axios.get("http://localhost:4000/api/v1/getallbooks")
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/getallbooks`)
       setData(response.data.data);
     }
     fetch();

@@ -12,7 +12,7 @@ const Cart = () => {
     authorization: `Bearer ${localStorage.getItem("token")}`,
   }
   const removeCart = async (book) => {
-    const response = await axios.put(`http://localhost:4000/api/v1/removetocart/${book}`, {}, { headers });
+    const response = await axios.put(`${process.env.REACT_APP_BASE_URL}/removetocart/${book}`, {}, { headers });
     alert(response.data.message);
 
   }

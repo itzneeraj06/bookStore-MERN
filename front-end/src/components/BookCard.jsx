@@ -10,7 +10,7 @@ const BookCard = (props) => {
     bookid: props.data._id
   }
   const removeFav = async () => {
-    const response = await axios.put("http://localhost:4000/api/v1/removefav", {}, { headers });
+    const response = await axios.put(`${process.env.REACT_APP_BASE_URL}/removefav`, {}, { headers });
     alert(response.data.message);
 
   }

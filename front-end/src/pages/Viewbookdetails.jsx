@@ -24,17 +24,17 @@ const Viewbookdetails = () => {
 
   }
   const handleFav = async () => {
-    const response = await axios.put("http://localhost:4000/api/v1/addfav", {}, { headers });
+    const response = await axios.put(`${process.env.REACT_APP_BASE_URL}/addfav`, {}, { headers });
     alert(response.data.message);
   }
   const handleCart = async () => {
-    const response = await axios.put("http://localhost:4000/api/v1/addtocart", {}, { headers });
+    const response = await axios.put(`${process.env.REACT_APP_BASE_URL}/addtocart`, {}, { headers });
     alert(response.data.message);
   }
 
   useEffect(() => {
     const fetch = async () => {
-      const response = await axios.get(`http://localhost:4000/api/v1/getbook/${id}`)
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/getbook/${id}`)
       // console.log(response);
       setData(response.data.data);
 
@@ -42,7 +42,7 @@ const Viewbookdetails = () => {
     fetch();
 
 
-  },[id])
+  },[])
   // console.log(data);
   return (
     <>

@@ -15,7 +15,7 @@ const Profile = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const response = await axios.get("http://localhost:4000/api/v1/getuserinfo", { headers })
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/getuserinfo`, { headers })
       setProfile(response.data);
       // console.log(response.data);
     }
