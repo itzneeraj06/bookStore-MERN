@@ -83,3 +83,14 @@ exports.updateStatus = async (req, res) => {
         })
     }
 }
+
+exports.getAllOrders = async (req, res) => {
+
+    const { id } = req.headers;
+    const userData = await Order.find().populate("user").populate("book").sort({ createdAt: -1 })
+
+
+    return res.status(200).json({
+        data: userData,
+    })
+}
