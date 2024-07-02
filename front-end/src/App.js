@@ -12,10 +12,13 @@ import Footer from './components/Footer'
 import Favourites from './components/Favourites'
 import OrderHistory from './components/OrderHistory'
 import Setting from './components/Setting'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { login, changeRole } from './store/auth'
+import AddBook from './components/AddBook'
+import AllOrders from './components/AllOrders'
 const App = () => {
 
+  const role = useSelector((state) => (state.auth.role));
   const dispatch = useDispatch();
   useEffect(() => {
     if (localStorage.getItem("id") && localStorage.getItem("token") && localStorage.getItem("role")) {
@@ -34,9 +37,11 @@ const App = () => {
         <Route path='/allbooks' element={<AllBooks />}></Route>
         <Route path='/cart' element={<Cart />}></Route>
         <Route path='/profile' element={<Profile />}>
-          <Route index element={<Favourites/>}></Route>
-          <Route path='/profile/orderhistory' element={<OrderHistory />}/>
-          <Route path='/profile/setting' element={<Setting />}/>
+
+          {(role === "user") ? (<Route index element={<Favourites />}></Route>) : (<Route index element={<AllOrders />}></Route>)}
+          {(role === "user") ? (<Route path='/profile/orderhistory' element={<OrderHistory />} />) : (<Route path='/profile/addbooks' element={<AddBook />} />)}
+
+          <Route path='/profile/setting' element={<Setting />} />
         </Route>
         <Route path='/signup' element={<Signup />}></Route>
         <Route path='/login' element={<Login />}></Route>
