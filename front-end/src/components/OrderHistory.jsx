@@ -11,7 +11,7 @@ const OrderHistory = () => {
     const fetch = async () => {
       const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/orderhistory`, { headers });
       setorderhistory(response.data.data);
-      console.log(response.data.data);
+      // console.log(response.data.data);
 
     };
     fetch();
@@ -48,8 +48,8 @@ const OrderHistory = () => {
                 <p >{index + 1}.</p>
                 <p className="col-start-2 col-span-2 ">{item.book.title}</p>
                 <p className="col-start-4 col-span-3">{item.book.desc.slice(0, 50)}...</p>
-                <p>{item.book.price}</p>
-                <p className='text-red-500'>{item.status}</p>
+                <p>₹ {item.book.price}</p>
+                {(item.status==="delivered")?(<p className='text-green-500'>{item.status}</p>):(<p className='text-red-500'>{item.status}</p>)}
                 <p>COD</p>
               </div>
             </>

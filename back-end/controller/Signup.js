@@ -1,5 +1,5 @@
 const User = require("../modals/users");
-const bcrypt=require("bcrypt")
+const bcrypt = require("bcrypt")
 
 exports.Signup = async (req, res) => {
     try {
@@ -25,19 +25,19 @@ exports.Signup = async (req, res) => {
         }
 
         // bss password ko encrypte kra hai or DB me hashPassword ko store kra hai
-        const hashPassword=await bcrypt.hash(password,10)
+        const hashPassword = await bcrypt.hash(password, 10)
 
         //USER CREATE USING .CREATE FUNCTION
         const newUser = await User.create({
-            username:username,
-            email:email,
-            password:hashPassword,
-            address:email
+            username: username,
+            email: email,
+            password: hashPassword,
+            address: address
 
         })
         return res.status(200).json({
             message: "signup successfull",
-            data:newUser
+            data: newUser
         })
 
     } catch (error) {

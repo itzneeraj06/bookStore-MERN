@@ -28,9 +28,6 @@ const AllOrders = () => {
     return (
         <div className=''>
 
-            {!allorder &&
-                <div className='w-full h-screen flex items-center justify-center'><Loader /></div>
-            }
             <p className='text-2xl font-semibold mx-2 my-4 '>All Orders</p>
             <div className='overflow-scroll sm:overflow-hidden'>
                 <div className='grid grid-cols-9 font-semibold bg-zinc-800 py-4 px-2 m-2  text-zinc-500 text-xs sm:text-sm w-[150%] sm:w-auto' >
@@ -41,6 +38,9 @@ const AllOrders = () => {
                     <p>Status</p>
                     <p className='col-start-8 col-span-2 '>Update Status</p>
                 </div>
+                {!allorder &&
+                    <div className='w-full h-screen flex items-center justify-center'><Loader /></div>
+                }
                 {
                     allorder && allorder.length === 0 &&
                     <div className='w-full mt-16 text-zinc-700 flex items-center justify-center'>

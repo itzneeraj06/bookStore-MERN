@@ -98,9 +98,10 @@ exports.Updatebook = async (req, res) => {
 exports.Getbooks = async (req, res) => {
     try {
         const book = await books.find();
+        const latestbook = book.reverse();
         return res.json({
             status: "success",
-            data: book
+            data: latestbook
         })
     } catch (error) {
         return res.status(500).json({ message: "failed to fetch all books" })
@@ -119,9 +120,9 @@ exports.GetbookbyId = async (req, res) => {
         })
     }
 }
-exports.Getrecentbooks=async(req,res)=>{
+exports.Getrecentbooks = async (req, res) => {
     try {
-        const book = await books.find().sort({createdAt:-1}).limit(4);
+        const book = await books.find().sort({ createdAt: -1 }).limit(4);
         return res.json({
             status: "success",
             data: book

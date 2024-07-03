@@ -42,7 +42,7 @@ const Viewbookdetails = () => {
     fetch();
 
 
-  },[])
+  }, [])
   // console.log(data);
   return (
     <>
@@ -75,7 +75,8 @@ const Viewbookdetails = () => {
               <p className='text-zinc-400 mt-1'>by {data.author}</p>
               <p className='flex mt-1 items-center justify-start text-zinc-400'><GrLanguage className='me-2' /> {data.language}</p>
               <p className='mt-4 text-zinc-100 text-3xl font-semibold'>Price : ₹ {data.price} {" "}</p>
-              <p className='text-zinc-500 mt-4 text-xs  sm:text-xl'>{data.desc}</p>
+              <p className='mt-6 text-zinc-400 text-xl font-semibold'>Description</p>
+              <p className='text-zinc-100 mt-1 text-xs  sm:text-sm'>{data.desc}</p>
 
             </div>
 

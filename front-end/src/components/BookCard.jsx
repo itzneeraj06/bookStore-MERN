@@ -23,7 +23,7 @@ const BookCard = (props) => {
           </div>
           <h2 className='mt-4 text-lg lg:text-xl  text-zinc-200 font-semibold'>{props.data.title}</h2>
           <p className='text-zinc-400 font-semibold text-sm lg:text-lg'>{props.data.author}</p>
-          <p className='text-zinc-200 font-semibold'>Rs. {props.data.price}</p>
+          <p className='text-zinc-200 font-semibold'>₹ {props.data.price}</p>
         </div>
       </Link>
       {
