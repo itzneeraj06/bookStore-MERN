@@ -12,6 +12,7 @@ const BookCard = (props) => {
   const removeFav = async () => {
     const response = await axios.put(`${process.env.REACT_APP_BASE_URL}/removefav`, {}, { headers });
     alert(response.data.message);
+    props.update();
 
   }
   return (

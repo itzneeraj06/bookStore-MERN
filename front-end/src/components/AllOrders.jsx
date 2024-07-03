@@ -17,12 +17,13 @@ const AllOrders = () => {
         // console.log(value);
     }
 
+    const fetch = async () => {
+        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/allorders`, { headers });
+        // console.log(response.data.data);
+        setallorder(response.data.data);
+    };
+
     useEffect(() => {
-        const fetch = async () => {
-            const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/allorders`, { headers });
-            // console.log(response.data.data);
-            setallorder(response.data.data);
-        };
         fetch();
     }, [])
     return (
@@ -72,8 +73,8 @@ const AllOrders = () => {
                                     const bookid = allorder[index]._id;
                                     console.log(bookid);
                                     await axios.put(`${process.env.REACT_APP_BASE_URL}/updatestatus/${bookid}`, values, { headers });
-                                    alert("status updated")
-
+                                    alert("status updated");
+                                    fetch();
                                 }}><FaCheck /></button>
                             </p>
                         </div>)
