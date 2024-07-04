@@ -54,29 +54,31 @@ const AllOrders = () => {
                         <div key={index} className='grid grid-cols-9 font-semibold bg-zinc-800  mx-2 my-[1px] py-4 px-2 text-zinc-300 text-xs sm:text-sm w-[150%] sm:w-auto'>
                             <p>{index + 1}.</p>
                             <p className="col-start-2 col-span-2 ">{item.user.username}</p>
-                            <p className="col-start-4 col-span-2 ">{item.book.title}</p>
-                            <p>₹ {item.book.price}</p>
-                            {
-                                item.status === "placed ?" ? (<p className='text-yellow-700'>{item.status}</p>)
-                                    : item.status === "cancelled" ? (<p className='text-red-700'>{item.status}</p>)
-                                        : (<p className='text-green-700'>{item.status}</p>)
+                            {(item.book) ? (
+                                <>
+                                    <p className="col-start-4 col-span-2 ">{item.book.title}</p>
+                                    <p>₹ {item.book.price}</p>
+                                    {
+                                        item.status === "placed ?" ? (<p className='text-yellow-700'>{item.status}</p>) : item.status === "cancelled" ? (<p className='text-red-700'>{item.status}</p>) : (<p className='text-green-700'>{item.status}</p>)
+                                    }
+                                    <p className="col-start-8 col-span-2">
+                                        <select className='text-zinc-900 font-normal rounded p-1 bg-zinc-300' onChange={change}>
+                                            <option value={item.status}>{item.status}</option>
+                                            <option value="placed ?">placed</option>
+                                            <option value="out for delivery">out for delivery</option>
+                                            <option value="delivered">delievered</option>
+                                            <option value="cancelled">cancelled</option>
+                                        </select>
+                                        <button className='ms-4' onClick={async () => {
+                                            const bookid = allorder[index]._id;
+                                            console.log(bookid);
+                                            await axios.put(`${process.env.REACT_APP_BASE_URL}/updatestatus/${bookid}`, values, { headers });
+                                            alert("status updated");
+                                            fetch();
+                                        }}><FaCheck /></button>
+                                    </p>
+                                </>) : (<p className='col-start-4 col-span-4  flex justify-center text-zinc-700'>Book Deleted - Data Not Found</p>)
                             }
-                            <p className="col-start-8 col-span-2">
-                                <select className='text-zinc-900 font-normal rounded p-1 bg-zinc-300' onChange={change}>
-                                    <option value={item.status}>{item.status}</option>
-                                    <option value="placed ?">placed</option>
-                                    <option value="out for delivery">out for delivery</option>
-                                    <option value="delivered">delievered</option>
-                                    <option value="cancelled">cancelled</option>
-                                </select>
-                                <button className='ms-4' onClick={async () => {
-                                    const bookid = allorder[index]._id;
-                                    console.log(bookid);
-                                    await axios.put(`${process.env.REACT_APP_BASE_URL}/updatestatus/${bookid}`, values, { headers });
-                                    alert("status updated");
-                                    fetch();
-                                }}><FaCheck /></button>
-                            </p>
                         </div>)
                 }
 
