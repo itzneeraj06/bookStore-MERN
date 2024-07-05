@@ -42,7 +42,7 @@ const Cart = () => {
   }, [cart])
 
   const placeorder = async () => {
-    const fetch = await axios.post("http://localhost:4000/api/v1/placeorder", { order: cart }, { headers });
+    const fetch = await axios.post(`${process.env.REACT_APP_BASE_URL}/placeorder`, { order: cart }, { headers });
     alert(fetch.data.message)
     navigate('/profile/orderhistory')
   }
