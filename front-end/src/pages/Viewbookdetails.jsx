@@ -2,64 +2,48 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Loader from '../components/Loader.jsx';
 import { GrLanguage } from "react-icons/gr";
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { FaHeart } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { useSelector } from 'react-redux';
 
+
 const Viewbookdetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [data, setData] = useState();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
   const role = useSelector((state) => state.auth.role);
+
 
   const headers = {
     id: localStorage.getItem("id"),
     authorization: `Bearer ${localStorage.getItem("token")}`,
     bookid: id,
+
   }
-
-  const fetch = async () => {
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/getbook/${id}`)
-    // console.log(response);
-    setData(response.data.data);
-  }
-
-  useEffect(() => {
-    fetch();
-  }, [])
-  // console.log(data);
-
   const handleFav = async () => {
     const response = await axios.put(`${process.env.REACT_APP_BASE_URL}/addfav`, {}, { headers });
     alert(response.data.message);
   }
-
   const handleCart = async () => {
     const response = await axios.put(`${process.env.REACT_APP_BASE_URL}/addtocart`, {}, { headers });
     alert(response.data.message);
   }
 
-  const deletebook = async () => {
-
-    let confirm = prompt("write confirm");
-    if (confirm === "confirm") {
-      const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}/deletebook`, { headers });
-      alert(response.data.message);
-      navigate("/allbooks");
-    }
-    else {
-      return (alert("failed "))
+  useEffect(() => {
+    const fetch = async () => {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/getbook/${id}`)
+      // console.log(response);
+      setData(response.data.data);
 
     }
-  }
-  const updatebook = () => {
-    navigate(`/updatebook/${id}`);
-  }
+    fetch();
 
+
+  }, [])
+  // console.log(data);
   return (
     <>
       {
@@ -81,8 +65,8 @@ const Viewbookdetails = () => {
               }
               {isLoggedIn && role === "admin" &&
                 <div className='flex flex-row sm:flex-col   p-2'>
-                  <button className='bg-white text-zinc-800 rounded-full text-xl p-2 w-auto mx-2 sm:mx-0' onClick={deletebook}><MdDelete /></button>
-                  <button className='bg-white text-zinc-800 rounded-full text-xl p-2 mt-0 sm:mt-2 w-auto' onClick={updatebook}><FaEdit /></button>
+                  <button className='bg-white text-zinc-800 rounded-full text-xl p-2 w-auto mx-2 sm:mx-0'><MdDelete /></button>
+                  <button className='bg-white text-zinc-800 rounded-full text-xl p-2 mt-0 sm:mt-2 w-auto'><FaEdit /></button>
                 </div>
               }
             </div>
