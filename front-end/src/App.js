@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { login, changeRole } from './store/auth'
 import AddBook from './components/AddBook'
 import AllOrders from './components/AllOrders'
+import UpdateBook from './pages/UpdateBook'
 const App = () => {
 
   const role = useSelector((state) => (state.auth.role));
@@ -45,6 +46,7 @@ const App = () => {
         </Route>
         <Route path='/signup' element={<Signup />}></Route>
         <Route path='/login' element={<Login />}></Route>
+        <Route path='/updatebook/:id' element={<UpdateBook />}></Route>
         <Route path='/getdetails/:id' element={<Viewbookdetails />}></Route>
       </Routes>
       <Footer />
