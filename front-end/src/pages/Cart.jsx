@@ -3,11 +3,14 @@ import Loader from '../components/Loader'
 import { MdDelete } from "react-icons/md";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { cartCount } from '../store/cart';
+import { useDispatch } from 'react-redux';
 
 const Cart = () => {
   const [cart, setCart] = useState();
   const [total, settotal] = useState(0);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const headers = {
     id: localStorage.getItem("id"),
@@ -26,6 +29,8 @@ const Cart = () => {
 
   const removeCart = async (book) => {
     const response = await axios.put(`${process.env.REACT_APP_BASE_URL}/removetocart/${book}`, {}, { headers });
+    const cartValue = await axios.get(`${process.env.REACT_APP_BASE_URL}/getuserinfo`, { headers });
+    dispatch(cartCount(cartValue.data.cart.length));
     alert(response.data.message);
     fetch();
   }
@@ -43,6 +48,8 @@ const Cart = () => {
 
   const placeorder = async () => {
     const fetch = await axios.post(`${process.env.REACT_APP_BASE_URL}/placeorder`, { order: cart }, { headers });
+    const cartValue = await axios.get(`${process.env.REACT_APP_BASE_URL}/getuserinfo`, { headers });
+    dispatch(cartCount(cartValue.data.cart.length));
     alert(fetch.data.message)
     navigate('/profile/orderhistory')
   }

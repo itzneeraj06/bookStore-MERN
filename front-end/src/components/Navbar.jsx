@@ -1,18 +1,38 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import logo from '../asset/logo.png'
 import { FiMenu } from "react-icons/fi";
 import { RxCross1 } from "react-icons/rx";
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { cartCount } from '../store/cart';
+import { useDispatch, useSelector } from 'react-redux';
+
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const checkrole = useSelector((state) => state.auth.role);
-  // console.log(checkrole);
+  const dispatch = useDispatch();
+  const cartcount = useSelector((state) => state.cart.cart);
+
   const Sidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
-    // console.log(isSidebarOpen);
   };
+
+  const headers = {
+    id: localStorage.getItem("id"),
+    authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+
+  const fetch = async () => {
+    if (isLoggedIn) {
+      const cartValue = await axios.get(`${process.env.REACT_APP_BASE_URL}/getuserinfo`, { headers });
+      dispatch(cartCount(cartValue.data.cart.length));
+    }
+  }
+  useEffect(() => {
+    fetch()
+  }, [])
+
   return (
     <>
       <div className='hidden sm:flex bg-zinc-800 text-white px-4 py-2 items-center justify-between'>
@@ -28,7 +48,7 @@ const Navbar = () => {
             <li className=' hover:text-blue-500 transition-all duration-500'><Link to={'/'}>Home</Link></li>
             <li className=' hover:text-blue-500 transition-all duration-500'><Link to={'/allbooks'}>All Books</Link></li>
             {isLoggedIn &&
-              <li className=' hover:text-blue-500 transition-all duration-500'><Link to={'/cart'}>Cart</Link></li>
+              <li className=' hover:text-blue-500 transition-all duration-500 flex'><Link to={'/cart'}>Cart</Link><p className=' rounded-full text-red-400 text-xs ms-[1px]'>{cartcount}</p></li>
             }
           </ul>
           {!isLoggedIn &&
@@ -58,7 +78,7 @@ const Navbar = () => {
           {
             !isSidebarOpen && (
               (isLoggedIn) ? (
-                <Link to='/Cart' className='me-2 text-zinc-400' >Cart</Link>) : (
+                <Link to='/Cart' className='me-2 text-zinc-400 flex' >Cart <p className='text-xs text-red-400'>{cartcount}</p></Link>) : (
                 <Link to='/login' className='px-2 py-1 me-2 border border-blue-500 rounded hover:bg-blue-500  transition-all duration-300 '>Login</Link>))
           }
 

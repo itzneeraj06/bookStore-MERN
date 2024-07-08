@@ -8,6 +8,8 @@ import { FaCartShopping } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { useSelector } from 'react-redux';
+import { cartCount } from '../store/cart';
+import { useDispatch } from 'react-redux';
 
 const Viewbookdetails = () => {
   const { id } = useParams();
@@ -15,6 +17,7 @@ const Viewbookdetails = () => {
   const [data, setData] = useState();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
   const role = useSelector((state) => state.auth.role);
+  const dispatch = useDispatch();
 
   const headers = {
     id: localStorage.getItem("id"),
@@ -40,6 +43,9 @@ const Viewbookdetails = () => {
 
   const handleCart = async () => {
     const response = await axios.put(`${process.env.REACT_APP_BASE_URL}/addtocart`, {}, { headers });
+    const cartValue = await axios.get(`${process.env.REACT_APP_BASE_URL}/getuserinfo`, { headers });
+    // console.log(cartValue.data.cart.length);
+    dispatch(cartCount(cartValue.data.cart.length));
     alert(response.data.message);
   }
 
