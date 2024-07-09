@@ -24,10 +24,13 @@ const Navbar = () => {
   }
 
   const fetch = async () => {
-    if (isLoggedIn) {
+    try {
       const cartValue = await axios.get(`${process.env.REACT_APP_BASE_URL}/getuserinfo`, { headers });
       dispatch(cartCount(cartValue.data.cart.length));
+    } catch (error) {
+      console.log("cart not found please login!!!");
     }
+
   }
   useEffect(() => {
     fetch()
